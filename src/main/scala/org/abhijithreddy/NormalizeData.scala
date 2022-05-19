@@ -52,31 +52,58 @@ object NormalizeData {
     var ofacDF = ofacFlt.toDF(append_of: _*)
 
     // Transform ofac DataFrame columns to align with uktreasury data
-    ofacDF = ofacDF.withColumnRenamed("of_sdnType", "uk_GroupTypeDescription")
+    
+    // Rename of_sdnType to uk_GroupTypeDescription
+    ofacDF = ofacDF.withColumnRenamed("of_sdnType", "uk_GroupTypeDescription") 
+    // Transform of_akaList_aka_type to same format as uk_AliasType
     ofacDF = ofacDF.withColumn("of_akaList_aka_type", regexp_replace(col("of_akaList_aka_type"), "\\.", "")).withColumn("of_akaList_aka_type", upper($"of_akaList_aka_type")).withColumnRenamed("of_akaList_aka_type", "uk_AliasType")
+    // Map of_akaList_aka_category data to uk_AliasQuality data
     ofacDF = ofacDF.withColumn("of_akaList_aka_category", when(col("of_akaList_aka_category") === "strong", "Good quality").when(col("of_akaList_aka_category") === "weak", "Low quality").otherwise(col("of_akaList_aka_category"))).withColumnRenamed("of_akaList_aka_category", "uk_AliasQuality")
+    // Rename of_vesselInfo_vesselType to uk_Ship_Type__VALUE
     ofacDF = ofacDF.withColumnRenamed("of_vesselInfo_vesselType", "uk_Ship_Type__VALUE")
-    ofacDF = ofacDF.withColumn("uk_Ship_Type__i:nil", when(col("uk_Ship_Type__VALUE").isNull, true).otherwise(false))
+    // Add uk_Ship_Type__i:nil to allign with uk_treasury data
+    ofacDF = ofacDF.withColumn("uk_Ship_Type__i:nil", when(col("uk_Ship_Type__VALUE").isNull, true).otherwise(false)) 
+    // Rename of_vesselInfo_vesselType to uk_Ship_PreviousFlags__VALUE
     ofacDF = ofacDF.withColumnRenamed("of_vesselInfo_vesselFlag", "uk_Ship_PreviousFlags__VALUE")
+    // Add uk_Ship_Type__i:nil to allign with uk_treasury data
     ofacDF = ofacDF.withColumn("uk_Ship_PreviousFlags__i:nil", when(col("uk_Ship_PreviousFlags__VALUE").isNull, true).otherwise(false))
+    // Rename of_vesselInfo_tonnage to uk_Ship_Tonnage__VALUE
     ofacDF = ofacDF.withColumnRenamed("of_vesselInfo_tonnage", "uk_Ship_Tonnage__VALUE")
+    // Add uk_Ship_Tonnage__i:nil to allign with uktreasury data
     ofacDF = ofacDF.withColumn("uk_Ship_Tonnage__i:nil", when(col("uk_Ship_Tonnage__VALUE").isNull, true).otherwise(false))
+    // Rename of_dateOfBirthList_dateOfBirthItem_dateOfBirth to uk_Individual_DateOfBirth
     ofacDF = ofacDF.withColumnRenamed("of_dateOfBirthList_dateOfBirthItem_dateOfBirth", "uk_Individual_DateOfBirth")
+    // Rename of_nationalityList_nationality_country to uk_Individual_Nationality__VALUE
     ofacDF = ofacDF.withColumnRenamed("of_nationalityList_nationality_country", "uk_Individual_Nationality__VALUE")
+    // Add uk_Individual_Nationality__i:nil to allign with uktreasury data
     ofacDF = ofacDF.withColumn("uk_Individual_Nationality__i:nil", when(col("uk_Individual_Nationality__VALUE").isNull, true).otherwise(false))
+    // Rename of_idList_id_idNumber to uk_Individual_PassportNumber__VALUE
     ofacDF = ofacDF.withColumnRenamed("of_idList_id_idNumber", "uk_Individual_PassportNumber__VALUE")
+    // Add uk_Individual_PassportNumber__i:nil to allign with uktreasury data
     ofacDF = ofacDF.withColumn("uk_Individual_PassportNumber__i:nil", when(col("uk_Individual_PassportNumber__VALUE").isNull, true).otherwise(false))
+    // Transform of_idList_id_idCountry, of_idList_id_issueDate, of_idList_id_expirationDate to same format as uk_Individual_PassportDetails__VALUE
     ofacDF = ofacDF.withColumn("uk_Individual_PassportDetails__VALUE", concat(col("of_idList_id_idCountry"), lit(" number. Issued on "), col("of_idList_id_issueDate"), lit(", expires on "), col("of_idList_id_expirationDate")))
+    // Add uk_Individual_PassportDetails__i:nil to allign with uktreasury data
     ofacDF = ofacDF.withColumn("uk_Individual_PassportDetails__i:nil", when(col("uk_Individual_PassportDetails__VALUE").isNull, true).otherwise(false))
+    // Drop ofac columns that are transformed
     ofacDF = ofacDF.drop("of_idList_id_idCountry", "of_idList_id_issueDate", "of_idList_id_expirationDate")
+    // Rename of_citizenshipList_citizenship_country to uk_Country__VALUE
     ofacDF = ofacDF.withColumnRenamed("of_citizenshipList_citizenship_country", "uk_Country__VALUE")
+    // Add uk_Country__i:nil to allign with uktreasury data
     ofacDF = ofacDF.withColumn("uk_Country__i:nil", when(col("uk_Country__VALUE").isNull, true).otherwise(false))
+    // Rename of_title to uk_Title__VALUE
     ofacDF = ofacDF.withColumnRenamed("of_title", "uk_Title__VALUE")
+    // Add uk_Title__i:nil to allign with uktreasury data
     ofacDF = ofacDF.withColumn("uk_Title__i:nil", when(col("uk_Title__VALUE").isNull, true).otherwise(false))
+    // Rename of_remarks to uk_OtherInformation__VALUE
     ofacDF = ofacDF.withColumnRenamed("of_remarks", "uk_OtherInformation__VALUE")
+    // Add uk_OtherInformation__i:nil to allign with uktreasury data
     ofacDF = ofacDF.withColumn("uk_OtherInformation__i:nil", when(col("uk_OtherInformation__VALUE").isNull, true).otherwise(false))
+    // Transform of_firstName, of_lastName to same format as uk_Name6
     ofacDF = ofacDF.withColumn("uk_Name6", concat_ws(",", col("of_firstName"), col("of_lastName")))
+    // Drop ofac columns that are transformed
     ofacDF = ofacDF.drop("of_firstName", "of_lastName")
+    
     // Load uktreasury xml data into DataFrame
     val uktsry = spark.read
       .format("com.databricks.spark.xml")
@@ -90,8 +117,11 @@ object NormalizeData {
     var uktsryDF = uktsryFlt.toDF(prefix_columns: _*)
 
     // Transform uktreasury DataFrame columns to align with ofac data
+    // Transform date format of uk_Individual_DateOfBirth to allign with ofac data
     uktsryDF = uktsryDF.withColumn("uk_Individual_DateOfBirth", date_format(col("uk_Individual_DateOfBirth"),"dd MMM yyyy"))
+    // Transform uk_Individual_TownOfBirth__VALUE, uk_Individual_CountryOfBirth__VALUE to allign with of_placeOfBirthList_placeOfBirthItem_placeOfBirth
     uktsryDF = uktsryDF.withColumn("of_placeOfBirthList_placeOfBirthItem_placeOfBirth", concat_ws(", ", col("uk_Individual_TownOfBirth__VALUE"), col("uk_Individual_CountryOfBirth__VALUE")))
+    // Drop uktreasury columns that are already transformed and not needed
     uktsryDF = uktsryDF.drop("uk_Individual_TownOfBirth__VALUE", "uk_Individual_TownOfBirth__i:nil", "uk_Individual_CountryOfBirth__VALUE", "uk_Individual_CountryOfBirth__i:nil")
 
     // Merge both DataFrames
@@ -105,7 +135,8 @@ object NormalizeData {
     ofacDF = ofacDF.select(getMissingColumns(ofacDF.columns.toSet, normalized_cols):_*)
     uktsryDF = uktsryDF.select(getMissingColumns(uktsryDF.columns.toSet, normalized_cols):_*)
     uktsryDF = ofacDF.unionByName(uktsryDF).distinct
-
+    
+    // Write noramlized data as parquet files
     uktsryDF.write.mode(saveMode = "Overwrite").parquet("normalizedData.parquet")
     spark.stop()
   }
