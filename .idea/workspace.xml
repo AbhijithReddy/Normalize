@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4679ac36-1838-41a8-a8fa-6d69ca646d58" name="Changes" comment="Update inceptionYear">
+    <list default="true" id="4679ac36-1838-41a8-a8fa-6d69ca646d58" name="Changes" comment="Update dependencies in pom.xml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
@@ -44,6 +44,9 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
@@ -78,7 +81,7 @@
       <workItem from="1651895871517" duration="126000" />
       <workItem from="1651896022549" duration="636000" />
       <workItem from="1651896685048" duration="15767000" />
-      <workItem from="1652977247143" duration="6303000" />
+      <workItem from="1652977247143" duration="7014000" />
     </task>
     <task id="LOCAL-00001" summary="Update inceptionYear">
       <created>1652983516320</created>
@@ -87,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652983516320</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Update dependencies in pom.xml">
+      <created>1652984384095</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1652984384095</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -107,6 +117,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Update inceptionYear" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update inceptionYear" />
+    <MESSAGE value="Update dependencies in pom.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update dependencies in pom.xml" />
   </component>
 </project>
