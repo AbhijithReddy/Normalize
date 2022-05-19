@@ -4,7 +4,7 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.{Column, DataFrame}
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.functions._
-object UnifySchema {
+object NormalizeData {
   def flattenDataFrame(df: DataFrame): DataFrame = {
     val fields = df.schema.fields
     val fieldNames = fields.map(x => x.name)
@@ -94,6 +94,7 @@ object UnifySchema {
     uktsryDF = uktsryDF.withColumn("of_placeOfBirthList_placeOfBirthItem_placeOfBirth", concat_ws(", ", col("uk_Individual_TownOfBirth__VALUE"), col("uk_Individual_CountryOfBirth__VALUE")))
     uktsryDF = uktsryDF.drop("uk_Individual_TownOfBirth__VALUE", "uk_Individual_TownOfBirth__i:nil", "uk_Individual_CountryOfBirth__VALUE", "uk_Individual_CountryOfBirth__i:nil")
 
+    // Merge both DataFrames
     val normalized_cols = ofacDF.columns.toSet ++ uktsryDF.columns.toSet
     def getMissingColumns(column: Set[String], normalized_cols: Set[String]) = {
       normalized_cols.toList.map(x => x match {
