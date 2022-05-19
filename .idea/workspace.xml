@@ -6,7 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="4679ac36-1838-41a8-a8fa-6d69ca646d58" name="Changes" comment="Update dependencies in pom.xml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/normalizedData.parquet/.part-00000-6c4e7c51-f2d3-4928-bb6a-8ce2a3e0e89d-c000.snappy.parquet.crc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/normalizedData.parquet/.part-00001-6c4e7c51-f2d3-4928-bb6a-8ce2a3e0e89d-c000.snappy.parquet.crc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/normalizedData.parquet/.part-00002-6c4e7c51-f2d3-4928-bb6a-8ce2a3e0e89d-c000.snappy.parquet.crc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/normalizedData.parquet/.part-00003-6c4e7c51-f2d3-4928-bb6a-8ce2a3e0e89d-c000.snappy.parquet.crc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/normalizedData.parquet/part-00000-6c4e7c51-f2d3-4928-bb6a-8ce2a3e0e89d-c000.snappy.parquet" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/normalizedData.parquet/part-00001-6c4e7c51-f2d3-4928-bb6a-8ce2a3e0e89d-c000.snappy.parquet" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/normalizedData.parquet/part-00002-6c4e7c51-f2d3-4928-bb6a-8ce2a3e0e89d-c000.snappy.parquet" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/normalizedData.parquet/part-00003-6c4e7c51-f2d3-4928-bb6a-8ce2a3e0e89d-c000.snappy.parquet" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/abhijithreddy/NormalizeData.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/abhijithreddy/NormalizeData.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +89,7 @@
       <workItem from="1651895871517" duration="126000" />
       <workItem from="1651896022549" duration="636000" />
       <workItem from="1651896685048" duration="15767000" />
-      <workItem from="1652977247143" duration="7014000" />
+      <workItem from="1652977247143" duration="7739000" />
     </task>
     <task id="LOCAL-00001" summary="Update inceptionYear">
       <created>1652983516320</created>
@@ -97,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652984384095</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Update dependencies in pom.xml">
+      <created>1652985007547</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1652985007547</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

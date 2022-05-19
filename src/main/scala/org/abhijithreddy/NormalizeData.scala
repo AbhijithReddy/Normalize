@@ -106,7 +106,7 @@ object NormalizeData {
     uktsryDF = uktsryDF.select(getMissingColumns(uktsryDF.columns.toSet, normalized_cols):_*)
     uktsryDF = ofacDF.unionByName(uktsryDF).distinct
 
-    uktsryDF.write.parquet("normalizedData.parquet")
+    uktsryDF.write.mode(saveMode = "Overwrite").parquet("normalizedData.parquet")
     spark.stop()
   }
 }
